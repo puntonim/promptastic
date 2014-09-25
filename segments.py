@@ -55,7 +55,7 @@ class CurrentDir(Segment):
 
 class Time(Segment):
     bg = colors.background(colors.DARKER_GREY)
-    fg = colors.foreground(colors.DARK_GREY)
+    fg = colors.foreground(colors.MID_DARK_GREY)
 
     now = datetime.now().time()
     text = '{} {}:{}:{}'.format(
@@ -67,6 +67,9 @@ class Time(Segment):
 
 
 class Padding(Segment):
+    bg = colors.background(colors.MORE_DARKER_GREY)
+    #fg = colors.foreground(colors.DARK_GREY)
+
     def __init__(self, amount):
         self.text = ''.ljust(amount)
 
