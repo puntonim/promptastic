@@ -35,10 +35,14 @@ class UserAtHost(Segment):
 
 
 class Divider(Segment):
-    bg = colors.background(colors.DARK_GREY)
-    fg = colors.foreground(colors.MID_GREY)
-
     text = symbols.DIVIDER_RIGHT
+
+    def set_colors(self, prev, next):
+        if next:
+            self.bg = next.bg
+
+        if prev:
+            self.fg = prev.bg.replace('setab', 'setaf')
 
 
 class CurrentDir(Segment):
