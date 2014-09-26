@@ -18,11 +18,8 @@ PINKISH_RED = 161
 
 LIGHT_GREEN = 148
 MID_GREEN = 35
+SMERALD = 29
 DARK_GREEN = 22
-
-# Other interesting colors
-#124
-#39
 
 
 def foreground(color):

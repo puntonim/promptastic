@@ -4,7 +4,7 @@
 import sys
 from os import popen
 
-from segments import UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root
+from segments import UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root, Jobs
 
 
 class Prompt:
@@ -38,6 +38,9 @@ class Prompt:
         self.append_left(NewLine())
 
     def render(self):
+        # Remove inactive segments and duplicate dividers.
+        # self._clean_segments()
+
         output = ''
         for i, segment in enumerate(self.segments):
             # We need to color a divider based on the colors of the previous and next segments.
@@ -48,6 +51,14 @@ class Prompt:
 
             output += segment.render()
         return output
+
+    # def _clean_segments(self):
+    #     cleaned_segments = []
+    #
+    #     for i, segment in enumerate(self.segments):
+    #         if segment.active:
+    #             cleaned_segments.append(segment)
+    #     self.segments = cleaned_segments
 
     @staticmethod
     def _get_console_columns_n():
@@ -66,4 +77,5 @@ if __name__ == '__main__':
     prompt.append_left(Divider())
     prompt.append_right_group_and_new_line([Divider(), Time()])
     prompt.append_left(Root())
+
     sys.stdout.write(prompt.render())
