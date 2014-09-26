@@ -65,3 +65,11 @@ class Time(Segment):
 class Padding(Segment):
     def __init__(self, amount):
         self.text = ''.ljust(amount)
+
+
+class NewLine(Segment):
+    text = '\r\n'
+
+
+class Root(Segment):
+    text = '\\$ '

@@ -4,7 +4,7 @@
 import sys
 from os import popen
 
-from segments import UserAtHost, Divider, Padding, CurrentDir, Time
+from segments import UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root
 
 
 class Prompt:
@@ -20,10 +20,10 @@ class Prompt:
         delta = cols - (text_len % cols)
         self.append_left(Padding(delta))
         self.append_left(segment)
+        self.append_left(NewLine())
 
     def render(self):
-        output = ''.join([x.render() for x in self.segments])
-        return output + '\r\n\\$ '
+        return ''.join([x.render() for x in self.segments])
 
     @staticmethod
     def _get_console_columns_n():
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     prompt.append_left(UserAtHost())
     prompt.append_left(Divider())
     prompt.append_left(CurrentDir())
-
+    prompt.append_left(Divider())
     prompt.append_right_and_new_line(Time())
-
+    prompt.append_left(Root())
     sys.stdout.write(prompt.render())
