@@ -1,5 +1,7 @@
 # Works only with Python3
 
+import sys
+
 glyphs = {
     'DIVIDER_RIGHT': '',
     'DIVIDER_RIGHT_SOFT': '',
@@ -8,7 +10,11 @@ glyphs = {
     'BRANCH': '',
     'ELLIPSIS': '⋯',
     'LINE_NUMBER': '',
-    'TIME': '⌚',
+    'TIME1': '⌚',
+    'TIME2': '⏰',
+    'TIME3': '꒾',
+    'TIME4': '⏳',
+    'TIME5': '⌛',
     'DOWN': '⬇',
     'UP': '⬆',
     'LOCK': '',
@@ -27,8 +33,10 @@ glyphs = {
     'BLUSTERY': '⚑',
     'RAINY1': '☔',
     'RAINY2': '☂',
-    'CLOUDY': '☁',
-    'SNOWY': '❅',
+    'CLOUDY1': '☁',
+    'CLOUDY2': '⛅',
+    'SNOWY1': '⛄',
+    'SNOWY2': '❅',
     'STORMY': '☈',
     'FOGGY': '≡',
     'SUNNY': '☼',
@@ -50,14 +58,20 @@ glyphs = {
     'QUESTION2': '❔',
     'ESCLAMATION1': '❕',
     'ESCLAMATION2': '❗',
+    'BALL1': '⚽',
+    'BALL2': '⚾',
+    'LIGHT': '⚡',
+    'STARS': '✨',
+    'STAR': '⭐',
 }
+
 
 
 def print_all_chars():
     # Chars should go from chr(0) to chr(110000), but there is nothing after around 68000
     for x in range(68000):
         try:
-            print(chr(x), end='')
+            print(chr(x), end=' ')
         except UnicodeEncodeError:
             pass
 
@@ -70,5 +84,14 @@ def print_collected_chars():
           '>>> print(chr(57520))\n'
           '{}'.format(chr(57520)))
 
+    print('\nNote: Use the command line argument `all` to print all symbols.')
+
 if __name__ == '__main__':
+    try:
+        if sys.argv[1] == 'all':
+            print_all_chars()
+            exit(0)
+    except IndexError:
+        pass
+
     print_collected_chars()
