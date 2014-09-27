@@ -31,9 +31,9 @@ def print_warning(text):
 def get_valid_cwd():
     """
     Get the current working dir.
-    The current working dir can be not valid: for instance when I move or delete a parent dir or
-    when I git checkout a branch which does not have the current dir. In this case we return the
-    current invalid dir (because this is what the OS thinks) but we display a warning.
+    The current working dir can be not valid: for instance when I delete a parent dir or when I
+    git checkout a branch which does not have the current dir. In this case we return the current
+    invalid dir (because this is what the OS thinks) but we display a warning.
     """
     try:
         cwd = getcwd()

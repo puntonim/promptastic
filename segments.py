@@ -2,7 +2,7 @@ from datetime import datetime
 from getpass import getuser
 from socket import gethostname
 from os.path import expanduser
-from os import getppid
+from os import getppid, access, W_OK
 from subprocess import Popen, PIPE
 from re import findall
 
@@ -107,12 +107,13 @@ class Jobs(Segment):
             self.active = False
 
 
-# class ReadOnly(Segment):
-#     bg = colors.background(colors.MID_ORANGE)
-#     fg = colors.foreground(colors.WHITE)
-#
-#     def __init__(self):
-#         cwd = powerline.cwd or os.getenv('PWD')
-#
-#         if not os.access(cwd, os.W_OK):
-#             powerline.append(' %s ' % powerline.lock, Color.READONLY_FG, Color.READONLY_BG)
+class ReadOnly(Segment):
+    bg = colors.background(colors.LIGHT_GREY)
+    fg = colors.foreground(colors.RED)
+
+    def __init__(self, cwd):
+        super().__init__()
+        self.text = ' {} '.format(symbols.LOCK)
+
+        if access(cwd, W_OK):
+            self.active = False

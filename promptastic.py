@@ -2,9 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from os import popen
 
-from segments import UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root, Jobs
+from segments import UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root, Jobs, ReadOnly
 from utils import get_valid_cwd, get_terminal_columns_n
 
 
@@ -140,6 +139,8 @@ if __name__ == '__main__':
     prompt.first_line_left.append(UserAtHost())
     prompt.first_line_left.append(Divider())
     prompt.first_line_left.append(CurrentDir(prompt.cwd))
+    prompt.first_line_left.append(Divider())
+    prompt.first_line_left.append(ReadOnly(prompt.cwd))
     prompt.first_line_left.append(Divider())
 
     # First line right (order: left to right).
