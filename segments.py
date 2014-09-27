@@ -5,6 +5,7 @@ from os.path import expanduser
 from os import getppid, access, W_OK
 from subprocess import Popen, PIPE
 from re import findall
+from sys import argv
 
 import symbols
 import colors
@@ -116,4 +117,16 @@ class ReadOnly(Segment):
         self.text = ' {} '.format(symbols.LOCK)
 
         if access(cwd, W_OK):
+            self.active = False
+
+
+class ExitCode(Segment):
+    bg = colors.background(colors.RED)
+    fg = colors.foreground(colors.WHITE)
+
+    def __init__(self):
+        super().__init__()
+        self.text = ' {} '.format(symbols.CROSS)
+
+        if argv[1] == '0':
             self.active = False

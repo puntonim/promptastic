@@ -3,7 +3,8 @@
 
 import sys
 
-from segments import UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root, Jobs, ReadOnly
+from segments import (UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root, Jobs,
+                      ReadOnly, ExitCode)
 from utils import get_valid_cwd, get_terminal_columns_n
 
 
@@ -142,6 +143,8 @@ if __name__ == '__main__':
     prompt.first_line_left.append(Divider())
     prompt.first_line_left.append(ReadOnly(prompt.cwd))
     prompt.first_line_left.append(Divider())
+    prompt.first_line_left.append(ExitCode())
+    prompt.first_line_left.append(Divider())
 
     # First line right (order: left to right).
     prompt.first_line_right.append(Divider())
@@ -151,5 +154,4 @@ if __name__ == '__main__':
 
     # Last line.
     prompt.last_line.append(Root())
-
     sys.stdout.write(prompt.render())
