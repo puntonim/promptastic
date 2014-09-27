@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys
+from sys import stdout
 
 from segments import (UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root, Jobs,
                       ReadOnly, ExitCode)
@@ -154,4 +154,8 @@ if __name__ == '__main__':
 
     # Last line.
     prompt.last_line.append(Root())
-    sys.stdout.write(prompt.render())
+
+    if hasattr(stdout, 'buffer'):
+        stdout.buffer.write(prompt.render().encode('utf-8'))
+    else:
+        stdout.write(prompt.render())

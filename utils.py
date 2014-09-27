@@ -1,5 +1,5 @@
 from os import popen, getcwd, getenv, sep, path, chdir
-from sys import exit
+from sys import exit, stdout
 
 from symbols import ESCLAMATION
 import colors
@@ -17,7 +17,7 @@ def print_warning(text):
         colors.reset()
     )
 
-    text_rendered = '{}{}promptastic{}: {}{}'.format(
+    text_rendered = '{}{}promptastic{}: {}{}\n'.format(
         colors.foreground(colors.LIGHTER_GOLD),
         colors.underline_start(),
         colors.underline_end(),
@@ -25,7 +25,11 @@ def print_warning(text):
         colors.reset()
     )
 
-    print('{} {}'.format(cross_rendered, text_rendered))
+    output = '{} {}'.format(cross_rendered, text_rendered)
+    if hasattr(stdout, 'buffer'):
+        stdout.buffer.write(output.encode('utf-8'))
+    else:
+        stdout.write(output.render())
 
 
 def get_valid_cwd():
