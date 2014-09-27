@@ -4,7 +4,7 @@
 from sys import stdout
 
 from segments import (UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root, Jobs,
-                      ReadOnly, ExitCode)
+                      ReadOnly, ExitCode, Ssh)
 from utils import get_valid_cwd, get_terminal_columns_n
 
 
@@ -67,19 +67,19 @@ class Prompt:
         F.i. the job segment is inactive when there is no job.
         """
         def remove_inactive(segments):
-            active_segments = []
-            for i, segment in enumerate(segments):
-                if segment.active:
-                    active_segments.append(segment)
-            return active_segments
+            return [x for x in segments if x.active]
 
         def remove_duplicated_dividers(segments):
+            # Collect in a list all indexes of elements in `segment` which must be removed (because
+            # they are duplicated dividers).
             to_remove = []
             for i in range(len(segments)-1):
                 if isinstance(segments[i], Divider) and isinstance(segments[i+1], Divider):
                     to_remove.append(i)
-            for i in to_remove:
-                segments.pop(i)
+
+            # Remove from segments the collected indexes.
+            for counter, i in enumerate(to_remove):
+                segments.pop(i - counter)
             return segments
 
         self.first_line_left = remove_duplicated_dividers(remove_inactive(self.first_line_left))
@@ -138,6 +138,8 @@ if __name__ == '__main__':
 
     # First line left (order: left to right).
     prompt.first_line_left.append(UserAtHost())
+    prompt.first_line_left.append(Divider())
+    prompt.first_line_left.append(Ssh())
     prompt.first_line_left.append(Divider())
     prompt.first_line_left.append(CurrentDir(prompt.cwd))
     prompt.first_line_left.append(Divider())

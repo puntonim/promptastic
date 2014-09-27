@@ -2,7 +2,7 @@ from datetime import datetime
 from getpass import getuser
 from socket import gethostname
 from os.path import expanduser
-from os import getppid, access, W_OK
+from os import getppid, access, W_OK, getenv
 from subprocess import Popen, PIPE
 from re import findall
 from sys import argv
@@ -129,4 +129,16 @@ class ExitCode(Segment):
         self.text = ' {} '.format(symbols.CROSS)
 
         if argv[1] == '0':
+            self.active = False
+
+
+class Ssh(Segment):
+    bg = colors.background(colors.LIGHT_ORANGE)
+    fg = colors.foreground(colors.WHITE) + colors.bold()
+
+    def __init__(self):
+        super().__init__()
+        self.text = 'SSH'
+
+        if not getenv('SSH_CLIENT'):
             self.active = False

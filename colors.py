@@ -9,11 +9,13 @@ MID_DARK_GREY = 238
 DARK_GREY = 237
 DARKER_GREY = 235
 MORE_DARKER_GREY = 234
-DARKEST_GREY = 232 # or 16.
+DARKEST_GREY = 232  # or 16.
 
 BLUEISH = 31
 
-MID_ORANGE = 166
+LIGHT_ORANGE = 202
+MID_ORANGE = 166  # or 9, 208.
+
 PINKISH_RED = 161
 LIGHTER_RED = 196
 LIGHT_RED = 160
@@ -28,6 +30,8 @@ GOLD = 94
 LIGHT_GOLD = 3
 LIGHTER_GOLD = 178
 
+BROWN = 130
+
 
 def foreground(color):
     return '\[$(tput setaf {})\]'.format(color)
@@ -39,6 +43,10 @@ def background(color):
 
 def reset():
     return '\[$(tput sgr0)\]'
+
+
+def bold():
+    return '\[$(tput bold)\]'
 
 
 def underline_start():
