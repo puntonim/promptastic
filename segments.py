@@ -45,11 +45,9 @@ class Divider(Segment):
     text = symbols.DIVIDER_RIGHT
 
     def set_colors(self, prev, next):
-        if next:
-            self.bg = next.bg
-
-        if prev:
-            self.fg = prev.bg.replace('setab', 'setaf')
+        self.bg = next.bg if next and next.bg else Padding.bg
+        self.fg = prev.bg if prev and prev.bg else Padding.bg
+        self.fg = self.fg.replace('setab', 'setaf')
 
 
 class CurrentDir(Segment):
@@ -59,7 +57,7 @@ class CurrentDir(Segment):
     def __init__(self):
         super().__init__()
         home = expanduser('~')
-        self.text = getcwd().replace(home, '~')
+        self.text = getcwd().replace(home, '~')  # TODO getcwd is not ok
 
 
 class Time(Segment):
@@ -107,3 +105,14 @@ class Jobs(Segment):
 
         if not num_jobs:
             self.active = False
+
+
+# class ReadOnly(Segment):
+#     bg = colors.background(colors.MID_ORANGE)
+#     fg = colors.foreground(colors.WHITE)
+#
+#     def __init__(self):
+#         cwd = powerline.cwd or os.getenv('PWD')
+#
+#         if not os.access(cwd, os.W_OK):
+#             powerline.append(' %s ' % powerline.lock, Color.READONLY_FG, Color.READONLY_BG)

@@ -27,9 +27,41 @@ class Prompt:
         # Return the entire prompt.
         return first_line + last_line
 
+    def _render_first_line(self):
+        # List of segments for the first line (left part, padding, right part).
+        # Add left part segments.
+        segments = self.first_line_left
+
+        # Compute the length of the padding between the left part and the right part.
+        padding_len = self._compute_padding_length_first_line()
+
+        # Add padding segment.
+        if padding_len:
+            segments.append(Padding(padding_len))
+
+        # Finally add right part segments.
+        segments.extend(self.first_line_right)
+        segments.append(NewLine())
+
+        # Color the dividers.
+        segments = self._color_dividers(segments)
+
+        # Render the resulting segments.
+        output = ''
+        for segment in segments:
+            output += segment.render()
+        return output
+
+    def _render_last_line(self):
+        output = ''
+        for segment in self.last_line:
+            output += segment.render()
+        return output
+
     def _clean_segments(self):
         """
         Remove inactive segments.
+        F.i. the job segment is inactive when there is no job.
         """
         def remove_inactive(segments):
             active_segments = []
@@ -49,11 +81,14 @@ class Prompt:
 
         self.first_line_left = remove_duplicated_dividers(remove_inactive(self.first_line_left))
         self.first_line_right = remove_duplicated_dividers(remove_inactive(self.first_line_right))
-        #self.last_line = remove_inactive(self.last_line)  # last_line is always safe.
+        # Commented out because the last_line is always safe.
+        #self.last_line = remove_duplicated_dividers(remove_inactive(self.last_line))
 
-    def _render_first_line(self):
-        segments = self.first_line_left
-
+    def _compute_padding_length_first_line(self):
+        """
+        Compute the padding length, which is the number of empty spaces to place between
+        the left part and the right part.
+        """
         # Check whether the right part starts with a Divider.
         right_starts_w_divider = True if isinstance(self.first_line_right[0], Divider) else False
 
@@ -65,37 +100,20 @@ class Prompt:
                     self._get_total_segments_length(self.first_line_right))
         text_len -= Divider().length() if right_starts_w_divider else 0
 
-        # Delta = number of empty spaces to write.
-        delta = cols - (text_len % cols)
+        # Padding dimension formula.
+        padding_len = cols - (text_len % cols)
 
-        # In case no empty space is needed, we remove the initial divider, in case there is.
-        if cols == delta:
+        # If the padding length is exactly one column, then we don't need padding at all.
+        if padding_len == cols:
+            padding_len = 0
+            # And we also don't need the initial divider in the right part.
             if right_starts_w_divider:
                 self.first_line_right.pop(0)
+        # Else: remove from padding_len the length of the initial divider, in case.
         else:
-            # Remove from delta the length of the initial divider, in case there is.
-            delta -= Divider().length() if right_starts_w_divider else 0
-            segments.append(Padding(delta))
+            padding_len -= Divider().length() if right_starts_w_divider else 0
 
-        # Finally add right part segments.
-        for segment in self.first_line_right:
-            segments.append(segment)
-        segments.append(NewLine())
-
-        # Color the dividers.
-        segments = self._color_dividers(segments)
-
-        # Render the resulting segments.
-        output = ''
-        for segment in segments:
-            output += segment.render()
-        return output
-
-    def _render_last_line(self):
-        output = ''
-        for segment in self.last_line:
-            output += segment.render()
-        return output
+        return padding_len
 
     @staticmethod
     def _get_console_columns_n():
@@ -112,8 +130,8 @@ class Prompt:
             # We need to color a divider based on the colors of the previous and next segments.
             if isinstance(segment, Divider):
                 prev = segments[i-1] if i > 0 else None
-                next = segments[i+1] if i+1 < len(segments) else None
-                segment.set_colors(prev, next)
+                next_ = segments[i+1] if i+1 < len(segments) else None
+                segment.set_colors(prev, next_)
         return segments
 
 
