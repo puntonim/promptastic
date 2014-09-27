@@ -2,7 +2,7 @@ from datetime import datetime
 from getpass import getuser
 from socket import gethostname
 from os.path import expanduser
-from os import getcwd, getppid
+from os import getppid
 from subprocess import Popen, PIPE
 from re import findall
 
@@ -54,10 +54,10 @@ class CurrentDir(Segment):
     bg = colors.background(colors.DARK_GREY)
     fg = colors.foreground(colors.LIGHT_GREY)
 
-    def __init__(self):
+    def __init__(self, cwd):
         super().__init__()
         home = expanduser('~')
-        self.text = getcwd().replace(home, '~')  # TODO getcwd is not ok
+        self.text = cwd.replace(home, '~')
 
 
 class Time(Segment):

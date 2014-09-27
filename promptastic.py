@@ -5,10 +5,13 @@ import sys
 from os import popen
 
 from segments import UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root, Jobs
+from utils import get_valid_cwd, get_terminal_columns_n
 
 
 class Prompt:
     def __init__(self):
+        self.cwd = get_valid_cwd()
+
         self.first_line_left = []
         self.first_line_right = []
         self.last_line = []
@@ -93,7 +96,7 @@ class Prompt:
         right_starts_w_divider = True if isinstance(self.first_line_right[0], Divider) else False
 
         # Terminal width.
-        cols = self._get_console_columns_n()
+        cols = get_terminal_columns_n()
 
         # Total length of the text (without the initial divider of the right part, in case).
         text_len = (self._get_total_segments_length(self.first_line_left) +
@@ -116,11 +119,6 @@ class Prompt:
         return padding_len
 
     @staticmethod
-    def _get_console_columns_n():
-        _, columns = popen('stty size', 'r').read().split()
-        return int(columns)
-
-    @staticmethod
     def _get_total_segments_length(segments):
         return sum([x.length() for x in segments])
 
@@ -141,7 +139,7 @@ if __name__ == '__main__':
     # First line left (order: left to right).
     prompt.first_line_left.append(UserAtHost())
     prompt.first_line_left.append(Divider())
-    prompt.first_line_left.append(CurrentDir())
+    prompt.first_line_left.append(CurrentDir(prompt.cwd))
     prompt.first_line_left.append(Divider())
 
     # First line right (order: left to right).

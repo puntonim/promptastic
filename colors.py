@@ -15,11 +15,18 @@ BLUEISH = 31
 
 MID_ORANGE = 166
 PINKISH_RED = 161
+LIGHTER_RED = 196
+LIGHT_RED = 160
+RED = 124
 
 LIGHT_GREEN = 148
 MID_GREEN = 35
 SMERALD = 29
 DARK_GREEN = 22
+
+GOLD = 94
+LIGHT_GOLD = 3
+LIGHTER_GOLD = 178
 
 
 def foreground(color):
@@ -32,3 +39,11 @@ def background(color):
 
 def reset():
     return '\[$(tput sgr0)\]'
+
+
+def underline_start():
+    return '\[$(tput smul)\]'
+
+
+def underline_end():
+    return '\[$(tput rmul)\]'
