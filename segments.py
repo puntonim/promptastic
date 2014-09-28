@@ -6,7 +6,7 @@ from subprocess import Popen, PIPE
 from re import findall
 from sys import argv
 
-import symbols
+import glyphs
 import colors
 
 
@@ -42,7 +42,7 @@ class UserAtHost(Segment):
 
 
 class Divider(Segment):
-    text = symbols.DIVIDER_RIGHT
+    text = glyphs.DIVIDER_RIGHT
 
     def set_colors(self, prev, next):
         self.bg = next.bg if next and next.bg else Padding.bg
@@ -68,7 +68,7 @@ class Time(Segment):
         super().__init__()
         now = datetime.now().time()
         self.text = '{} {}:{}:{}'.format(
-            symbols.TIME,
+            glyphs.TIME,
             now.hour,
             now.minute,
             now.second
@@ -101,7 +101,7 @@ class Jobs(Segment):
         output = Popen(['ps', '-a', '-o', 'ppid'], stdout=PIPE).communicate()[0]
         num_jobs = len(findall(bytes(pppid), output)) - 1
 
-        self.text = '{} {}'.format(symbols.HOURGLASS, num_jobs)
+        self.text = '{} {}'.format(glyphs.HOURGLASS, num_jobs)
 
         if not num_jobs:
             self.active = False
@@ -113,7 +113,7 @@ class ReadOnly(Segment):
 
     def __init__(self, cwd):
         super().__init__()
-        self.text = ' {} '.format(symbols.LOCK)
+        self.text = ' {} '.format(glyphs.LOCK)
 
         if access(cwd, W_OK):
             self.active = False
@@ -125,7 +125,7 @@ class ExitCode(Segment):
 
     def __init__(self):
         super().__init__()
-        self.text = ' {} '.format(symbols.CROSS)
+        self.text = ' {} '.format(glyphs.CROSS)
 
         if argv[1] == '0':
             self.active = False
@@ -156,4 +156,111 @@ class Venv(Segment):
             return
 
         env_name = path.basename(env)
-        self.text = env_name
+        self.text = '{} {}'.format(glyphs.VIRTUAL_ENV, env_name)
+
+
+class Git(Segment):
+    fg = colors.foreground(colors.WHITE)
+
+    def __init__(self):
+        super().__init__()
+
+        branch_name = self.get_branch_name()
+
+        if not branch_name:
+            self.active = False
+            return
+
+        self.git_status_output = self.get_git_status_output()
+
+        wd_glyph, bg_col = self.get_working_dir_status_decorations()
+        self.bg = colors.background(bg_col)
+
+        current_commit_text = self.get_current_commit_decoration_text()
+
+        self.text = '{} {}{} {}'.format(
+            wd_glyph,
+            branch_name,
+            glyphs.BRANCH,
+            current_commit_text,
+        )
+
+    @staticmethod
+    def get_branch_name():
+        try:
+            # See:
+            # http://git-blame.blogspot.com/2013/06/checking-current-branch-programatically.html
+            p = Popen(['git', 'symbolic-ref', '-q', 'HEAD'], stdout=PIPE, stderr=PIPE)
+            out, err = p.communicate()
+
+            if 'not a git repo' in str(err).lower():
+                raise FileNotFoundError
+        except FileNotFoundError:
+            return None
+
+        return out.decode().replace('refs/heads/', '').strip() if out else '(Detached)'
+
+    @staticmethod
+    def get_git_status_output():
+        return Popen(['git', 'status', '--ignore-submodules'],
+                     env={"LANG": "C", "HOME": getenv("HOME")},
+                     stdout=PIPE).communicate()[0].decode().lower()
+
+    def get_working_dir_status_decorations(self):
+        # Working directory statuses:
+        UNTRACKED_FILES = 0
+        CHANGES_NOT_STAGED = 1
+        ALL_CHANGES_STAGED = 2
+        CLEAN = 3
+        UNKNOWN = 4
+
+        # Statuses vs colors:
+        STATUSES_BGCOLORS = {
+            UNTRACKED_FILES: colors.LIGHT_RED,
+            CHANGES_NOT_STAGED: colors.LIGHT_RED,
+            ALL_CHANGES_STAGED: colors.LIGHT_ORANGE,
+            CLEAN: colors.DARK_GREEN,
+            UNKNOWN: colors.RED,
+        }
+
+        # Statuses vs glyphs:
+        STATUSES_GLYPHS = {
+            UNTRACKED_FILES: glyphs.RAINY,
+            CHANGES_NOT_STAGED: glyphs.CLOUDY,
+            ALL_CHANGES_STAGED: glyphs.SUNNY,
+            CLEAN: '',
+            UNKNOWN: '?',
+        }
+
+        if 'untracked files' in self.git_status_output:
+            return STATUSES_GLYPHS[UNTRACKED_FILES], STATUSES_BGCOLORS[UNTRACKED_FILES]
+
+        if 'changes not staged for commit' in self.git_status_output:
+            return STATUSES_GLYPHS[CHANGES_NOT_STAGED], STATUSES_BGCOLORS[CHANGES_NOT_STAGED]
+
+        if 'changes to be committed' in self.git_status_output:
+            return STATUSES_GLYPHS[ALL_CHANGES_STAGED], STATUSES_BGCOLORS[ALL_CHANGES_STAGED]
+
+        if 'nothing to commit' in self.git_status_output:
+            return STATUSES_GLYPHS[CLEAN], STATUSES_BGCOLORS[CLEAN]
+
+        return STATUSES_GLYPHS[UNKNOWN], STATUSES_BGCOLORS[UNKNOWN]
+
+    def get_current_commit_decoration_text(self):
+        DIRECTIONS_GLYPHS = {
+            'ahead': glyphs.RIGHT_ARROW,
+            'behind': glyphs.LEFT_ARROW,
+        }
+
+        match = findall(
+            r'your branch is (ahead|behind).*?(\d+) commit', self.git_status_output)
+
+        if not match:
+            return ''
+
+        direction = match[0][0]
+        amount = match[0][1]
+        amount = getattr(glyphs, 'N{}'.format(amount)) if int(amount) <= 10 else amount
+
+        return '{}{} '.format(amount, DIRECTIONS_GLYPHS[direction]) if direction == 'ahead' else \
+               '{}{} '.format(DIRECTIONS_GLYPHS[direction], amount)

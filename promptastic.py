@@ -4,7 +4,7 @@
 from sys import stdout
 
 from segments import (UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root, Jobs,
-                      ReadOnly, ExitCode, Ssh, Venv)
+                      ReadOnly, ExitCode, Ssh, Venv, Git)
 from utils import get_valid_cwd, get_terminal_columns_n
 
 
@@ -149,6 +149,8 @@ if __name__ == '__main__':
     prompt.first_line_left.append(Divider())
 
     # First line right (order: left to right).
+    prompt.first_line_right.append(Divider())
+    prompt.first_line_right.append(Git())
     prompt.first_line_right.append(Divider())
     prompt.first_line_right.append(Venv())
     prompt.first_line_right.append(Divider())

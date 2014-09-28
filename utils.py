@@ -1,7 +1,7 @@
 from os import popen, getcwd, getenv, sep, path, chdir
 from sys import exit, stdout
 
-from symbols import ESCLAMATION
+from glyphs import ESCLAMATION
 import colors
 from segments import Divider
 
