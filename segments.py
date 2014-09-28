@@ -1,8 +1,7 @@
 from datetime import datetime
 from getpass import getuser
 from socket import gethostname
-from os.path import expanduser
-from os import getppid, access, W_OK, getenv
+from os import getppid, access, W_OK, getenv, path
 from subprocess import Popen, PIPE
 from re import findall
 from sys import argv
@@ -57,7 +56,7 @@ class CurrentDir(Segment):
 
     def __init__(self, cwd):
         super().__init__()
-        home = expanduser('~')
+        home = path.expanduser('~')
         self.text = cwd.replace(home, '~')
 
 
@@ -142,3 +141,19 @@ class Ssh(Segment):
 
         if not getenv('SSH_CLIENT'):
             self.active = False
+
+
+class Venv(Segment):
+    bg = colors.background(colors.SMERALD)  # 161
+    fg = colors.foreground(colors.WHITE)
+
+    def __init__(self):
+        super().__init__()
+
+        env = getenv('VIRTUAL_ENV')
+        if env is None:
+            self.active = False
+            return
+
+        env_name = path.basename(env)
+        self.text = env_name
