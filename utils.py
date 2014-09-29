@@ -9,7 +9,7 @@ from segments import Divider
 def print_warning(text):
     divider = Divider()
     cross_rendered = '{}{} {}{}{}{}'.format(
-        colors.foreground(colors.WHITE) + colors.background(colors.GOLD),
+        colors.background(colors.GOLD),
         ESCLAMATION,
         colors.reset(),
         colors.foreground(colors.GOLD),

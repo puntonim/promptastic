@@ -16,7 +16,7 @@ def reset():
 if __name__ == '__main__':
     for i in range(256):
         subprocess.call(
-            'echo "{}{}user_name@localhost{} background={}"'.format(
+            'echo "{}{}  user_name@localhost  {} background={}"'.format(
                 foreground(15),
                 background(i),
                 reset(),

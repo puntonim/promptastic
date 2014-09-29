@@ -76,7 +76,7 @@ class Time(Segment):
 
 
 class Padding(Segment):
-    bg = colors.background(colors.MORE_DARKER_GREY)
+    bg = colors.background(colors.EXTRA_DARK_GREY)
 
     def __init__(self, amount):
         super().__init__()
@@ -92,7 +92,7 @@ class Root(Segment):
 
 
 class Jobs(Segment):
-    bg = colors.background(colors.MID_ORANGE)
+    bg = colors.background(colors.DARK_PURPLE)
     fg = colors.foreground(colors.WHITE)
 
     def __init__(self):
@@ -144,8 +144,8 @@ class Ssh(Segment):
 
 
 class Venv(Segment):
-    bg = colors.background(colors.SMERALD)  # 161
-    fg = colors.foreground(colors.WHITE)
+    bg = colors.background(colors.SMERALD)
+    fg = colors.foreground(colors.EXTRA_LIGHT_GREY)
 
     def __init__(self):
         super().__init__()
@@ -160,8 +160,6 @@ class Venv(Segment):
 
 
 class Git(Segment):
-    fg = colors.foreground(colors.WHITE)
-
     def __init__(self):
         super().__init__()
 
@@ -173,8 +171,9 @@ class Git(Segment):
 
         self.git_status_output = self.get_git_status_output()
 
-        wd_glyph, bg_col = self.get_working_dir_status_decorations()
-        self.bg = colors.background(bg_col)
+        wd_glyph, git_colors = self.get_working_dir_status_decorations()
+        self.bg = colors.background(git_colors[0])
+        self.fg = colors.foreground(git_colors[1])
 
         current_commit_text = self.get_current_commit_decoration_text()
 
@@ -215,16 +214,18 @@ class Git(Segment):
         UNKNOWN = 4
 
         # Statuses vs colors:
-        STATUSES_BGCOLORS = {
-            UNTRACKED_FILES: colors.LIGHT_RED,
-            CHANGES_NOT_STAGED: colors.LIGHT_RED,
-            ALL_CHANGES_STAGED: colors.LIGHT_ORANGE,
-            CLEAN: colors.DARK_GREEN,
-            UNKNOWN: colors.RED,
+        STATUSES_COLORS = {
+            #STATUS: (bg_col, fg_col),
+            UNTRACKED_FILES: (colors.PINKISH_RED, colors.NEARLY_WHITE_GREY),
+            CHANGES_NOT_STAGED: (colors.PINKISH_RED, colors.NEARLY_WHITE_GREY),
+            ALL_CHANGES_STAGED: (colors.LIGHT_ORANGE, colors.DARKER_GREY),
+            CLEAN: (colors.PISTACHIO, colors.DARKER_GREY),
+            UNKNOWN: (colors.RED, colors.WHITE),
         }
 
         # Statuses vs glyphs:
         STATUSES_GLYPHS = {
+            #STATUS: glyph,
             UNTRACKED_FILES: glyphs.RAINY,
             CHANGES_NOT_STAGED: glyphs.CLOUDY,
             ALL_CHANGES_STAGED: glyphs.SUNNY,
@@ -233,18 +234,18 @@ class Git(Segment):
         }
 
         if 'untracked files' in self.git_status_output:
-            return STATUSES_GLYPHS[UNTRACKED_FILES], STATUSES_BGCOLORS[UNTRACKED_FILES]
+            return STATUSES_GLYPHS[UNTRACKED_FILES], STATUSES_COLORS[UNTRACKED_FILES]
 
         if 'changes not staged for commit' in self.git_status_output:
-            return STATUSES_GLYPHS[CHANGES_NOT_STAGED], STATUSES_BGCOLORS[CHANGES_NOT_STAGED]
+            return STATUSES_GLYPHS[CHANGES_NOT_STAGED], STATUSES_COLORS[CHANGES_NOT_STAGED]
 
         if 'changes to be committed' in self.git_status_output:
-            return STATUSES_GLYPHS[ALL_CHANGES_STAGED], STATUSES_BGCOLORS[ALL_CHANGES_STAGED]
+            return STATUSES_GLYPHS[ALL_CHANGES_STAGED], STATUSES_COLORS[ALL_CHANGES_STAGED]
 
         if 'nothing to commit' in self.git_status_output:
-            return STATUSES_GLYPHS[CLEAN], STATUSES_BGCOLORS[CLEAN]
+            return STATUSES_GLYPHS[CLEAN], STATUSES_COLORS[CLEAN]
 
-        return STATUSES_GLYPHS[UNKNOWN], STATUSES_BGCOLORS[UNKNOWN]
+        return STATUSES_GLYPHS[UNKNOWN], STATUSES_COLORS[UNKNOWN]
 
     def get_current_commit_decoration_text(self):
         DIRECTIONS_GLYPHS = {
