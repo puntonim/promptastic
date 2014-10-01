@@ -3,7 +3,7 @@ from sys import exit, stdout
 
 from glyphs import ESCLAMATION
 import colors
-from segments import Divider
+from segments.basics import Divider
 
 
 def print_warning(text):

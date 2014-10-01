@@ -3,8 +3,7 @@
 
 from sys import stdout
 
-from segments import (UserAtHost, Divider, Padding, CurrentDir, Time, NewLine, Root, Jobs,
-                      ReadOnly, ExitCode, Ssh, Venv, Git)
+from segments import basics, sysinfo, filesystem, git, network
 from utils import get_valid_cwd, get_terminal_columns_n
 
 
@@ -40,11 +39,11 @@ class Prompt:
 
         # Add padding segment.
         if padding_len:
-            segments.append(Padding(padding_len))
+            segments.append(basics.Padding(padding_len))
 
         # Finally add right part segments.
         segments.extend(self.first_line_right)
-        segments.append(NewLine())
+        segments.append(basics.NewLine())
 
         # Color the dividers.
         segments = self._color_dividers(segments)
@@ -74,7 +73,8 @@ class Prompt:
             # they are duplicated dividers).
             to_remove = []
             for i in range(len(segments)-1):
-                if isinstance(segments[i], Divider) and isinstance(segments[i+1], Divider):
+                if isinstance(segments[i], basics.Divider) and isinstance(segments[i+1],
+                                                                          basics.Divider):
                     to_remove.append(i)
 
             # Remove from segments the collected indexes.
@@ -93,7 +93,8 @@ class Prompt:
         the left part and the right part.
         """
         # Check whether the right part starts with a Divider.
-        right_starts_w_divider = True if isinstance(self.first_line_right[0], Divider) else False
+        right_starts_w_divider = (True if isinstance(self.first_line_right[0], basics.Divider)
+                                  else False)
 
         # Terminal width.
         cols = get_terminal_columns_n()
@@ -101,7 +102,7 @@ class Prompt:
         # Total length of the text (without the initial divider of the right part, in case).
         text_len = (self._get_total_segments_length(self.first_line_left) +
                     self._get_total_segments_length(self.first_line_right))
-        text_len -= Divider().length() if right_starts_w_divider else 0
+        text_len -= basics.Divider().length() if right_starts_w_divider else 0
 
         # Padding dimension formula.
         padding_len = cols - (text_len % cols)
@@ -114,7 +115,7 @@ class Prompt:
                 self.first_line_right.pop(0)
         # Else: remove from padding_len the length of the initial divider, in case.
         else:
-            padding_len -= Divider().length() if right_starts_w_divider else 0
+            padding_len -= basics.Divider().length() if right_starts_w_divider else 0
 
         return padding_len
 
@@ -126,7 +127,7 @@ class Prompt:
     def _color_dividers(segments):
         for i, segment in enumerate(segments):
             # We need to color a divider based on the colors of the previous and next segments.
-            if isinstance(segment, Divider):
+            if isinstance(segment, basics.Divider):
                 prev = segments[i-1] if i > 0 else None
                 next_ = segments[i+1] if i+1 < len(segments) else None
                 segment.set_colors(prev, next_)
@@ -137,29 +138,29 @@ if __name__ == '__main__':
     prompt = Prompt()
 
     # First line left (order: left to right).
-    prompt.first_line_left.append(UserAtHost())
-    prompt.first_line_left.append(Divider())
-    prompt.first_line_left.append(Ssh())
-    prompt.first_line_left.append(Divider())
-    prompt.first_line_left.append(CurrentDir(prompt.cwd))
-    prompt.first_line_left.append(Divider())
-    prompt.first_line_left.append(ReadOnly(prompt.cwd))
-    prompt.first_line_left.append(Divider())
-    prompt.first_line_left.append(ExitCode())
-    prompt.first_line_left.append(Divider())
+    prompt.first_line_left.append(sysinfo.UserAtHost())
+    prompt.first_line_left.append(basics.Divider())
+    prompt.first_line_left.append(network.Ssh())
+    prompt.first_line_left.append(basics.Divider())
+    prompt.first_line_left.append(filesystem.CurrentDir(prompt.cwd))
+    prompt.first_line_left.append(basics.Divider())
+    prompt.first_line_left.append(filesystem.ReadOnly(prompt.cwd))
+    prompt.first_line_left.append(basics.Divider())
+    prompt.first_line_left.append(basics.ExitCode())
+    prompt.first_line_left.append(basics.Divider())
 
     # First line right (order: left to right).
-    prompt.first_line_right.append(Divider())
-    prompt.first_line_right.append(Git())
-    prompt.first_line_right.append(Divider())
-    prompt.first_line_right.append(Venv())
-    prompt.first_line_right.append(Divider())
-    prompt.first_line_right.append(Jobs())
-    prompt.first_line_right.append(Divider())
-    prompt.first_line_right.append(Time())
+    prompt.first_line_right.append(basics.Divider())
+    prompt.first_line_right.append(git.Git())
+    prompt.first_line_right.append(basics.Divider())
+    prompt.first_line_right.append(filesystem.Venv())
+    prompt.first_line_right.append(basics.Divider())
+    prompt.first_line_right.append(sysinfo.Jobs())
+    prompt.first_line_right.append(basics.Divider())
+    prompt.first_line_right.append(sysinfo.Time())
 
     # Last line.
-    prompt.last_line.append(Root())
+    prompt.last_line.append(basics.Root())
 
     if hasattr(stdout, 'buffer'):
         stdout.buffer.write(prompt.render().encode('utf-8'))
