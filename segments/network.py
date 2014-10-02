@@ -1,7 +1,7 @@
 import os
 
 from segments import Segment
-import colors
+from utils import colors
 
 
 class Ssh(Segment):

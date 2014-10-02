@@ -1,8 +1,7 @@
 import os
 
 from segments import Segment
-import colors
-import glyphs
+from utils import colors, glyphs
 
 
 class CurrentDir(Segment):

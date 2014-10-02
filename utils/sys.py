@@ -1,9 +1,9 @@
 import os
 import sys
 
-from glyphs import ESCLAMATION
-import colors
+from utils.glyphs import ESCLAMATION
 from segments.basics import Divider
+from utils import colors
 
 
 def print_warning(text):

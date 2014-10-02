@@ -4,7 +4,7 @@
 import sys
 
 from segments import basics, sysinfo, filesystem, git, network
-from utils import get_valid_cwd, get_terminal_columns_n
+from utils.sys import get_valid_cwd, get_terminal_columns_n
 
 
 class Prompt:

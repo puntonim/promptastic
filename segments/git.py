@@ -3,8 +3,7 @@ import re
 import subprocess
 
 from segments import Segment
-import colors
-import glyphs
+from utils import colors, glyphs
 
 
 class Git(Segment):

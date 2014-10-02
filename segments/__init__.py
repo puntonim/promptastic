@@ -1,5 +1,5 @@
-import colors
 import config
+from utils import colors
 
 
 class Segment:

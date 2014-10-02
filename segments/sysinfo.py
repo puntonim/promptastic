@@ -6,8 +6,7 @@ import getpass
 import socket
 
 from segments import Segment
-import colors
-import glyphs
+from utils import colors, glyphs
 
 
 class Jobs(Segment):
