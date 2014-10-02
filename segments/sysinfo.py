@@ -5,13 +5,13 @@ from datetime import datetime
 import getpass
 import socket
 
-from segments import Segment
+from segments import Segment, theme
 from utils import colors, glyphs
 
 
 class Jobs(Segment):
-    bg = colors.background(colors.DARK_PURPLE)
-    fg = colors.foreground(colors.WHITE)
+    bg = colors.background(theme.JOBS_BG)
+    fg = colors.foreground(theme.JOBS_FG)
 
     def init(self):
         pppid = subprocess.Popen(['ps', '-p', str(os.getppid()), '-oppid='],
@@ -63,8 +63,8 @@ class Jobs(Segment):
 
 
 class Time(Segment):
-    bg = colors.background(colors.DARKER_GREY)
-    fg = colors.foreground(colors.MID_DARK_GREY)
+    bg = colors.background(theme.TIME_BG)
+    fg = colors.foreground(theme.TIME_FG)
 
     def init(self):
         now = datetime.now().time()
@@ -77,8 +77,8 @@ class Time(Segment):
 
 
 class UserAtHost(Segment):
-    bg = colors.background(colors.SMERALD)
-    fg = colors.foreground(colors.WHITE)
+    bg = colors.background(theme.USERATHOST_BG)
+    fg = colors.foreground(theme.USERATHOST_FG)
 
     def init(self):
         self.text = '{}@{}'.format(

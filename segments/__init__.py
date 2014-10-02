@@ -1,5 +1,8 @@
+import importlib
+
+from utils import colors, sys
 import config
-from utils import colors
+theme = importlib.import_module('themes.{}'.format(sys.get_current_theme_name()))
 
 
 class Segment:

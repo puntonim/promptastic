@@ -1,12 +1,12 @@
 import os
 
-from segments import Segment
+from segments import Segment, theme
 from utils import colors, glyphs
 
 
 class CurrentDir(Segment):
-    bg = colors.background(colors.DARK_GREY)
-    fg = colors.foreground(colors.LIGHT_GREY)
+    bg = colors.background(theme.CURRENTDIR_BG)
+    fg = colors.foreground(theme.CURRENTDIR_FG)
 
     def init(self, cwd):
         home = os.path.expanduser('~')
@@ -14,8 +14,8 @@ class CurrentDir(Segment):
 
 
 class ReadOnly(Segment):
-    bg = colors.background(colors.LIGHT_GREY)
-    fg = colors.foreground(colors.RED)
+    bg = colors.background(theme.READONLY_BG)
+    fg = colors.foreground(theme.READONLY_FG)
 
     def init(self, cwd):
         self.text = ' {} '.format(glyphs.LOCK)
@@ -25,8 +25,8 @@ class ReadOnly(Segment):
 
 
 class Venv(Segment):
-    bg = colors.background(colors.SMERALD)
-    fg = colors.foreground(colors.EXTRA_LIGHT_GREY)
+    bg = colors.background(theme.VENV_BG)
+    fg = colors.foreground(theme.VENV_FG)
 
     def init(self):
         env = os.getenv('VIRTUAL_ENV')

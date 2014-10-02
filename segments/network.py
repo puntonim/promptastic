@@ -1,12 +1,12 @@
 import os
 
-from segments import Segment
+from segments import Segment, theme
 from utils import colors
 
 
 class Ssh(Segment):
-    bg = colors.background(colors.LIGHT_ORANGE)
-    fg = colors.foreground(colors.WHITE) + colors.bold()
+    bg = colors.background(theme.SSH_BG)
+    fg = colors.foreground(theme.SSH_FG) + colors.bold()
 
     def init(self):
         self.text = 'SSH'

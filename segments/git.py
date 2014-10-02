@@ -2,7 +2,7 @@ import os
 import re
 import subprocess
 
-from segments import Segment
+from segments import Segment, theme
 from utils import colors, glyphs
 
 
@@ -62,10 +62,10 @@ class Git(Segment):
         # Statuses vs colors:
         STATUSES_COLORS = {
             #STATUS: (bg_col, fg_col),
-            UNTRACKED_FILES: (colors.PINKISH_RED, colors.NEARLY_WHITE_GREY),
-            CHANGES_NOT_STAGED: (colors.PINKISH_RED, colors.NEARLY_WHITE_GREY),
-            ALL_CHANGES_STAGED: (colors.LIGHT_ORANGE, colors.DARKER_GREY),
-            CLEAN: (colors.PISTACHIO, colors.DARKER_GREY),
+            UNTRACKED_FILES: (theme.GIT_UNTRACKED_FILES_BG, theme.GIT_UNTRACKED_FILES_FG),
+            CHANGES_NOT_STAGED: (theme.GIT_CHANGES_NOT_STAGED_BG, theme.GIT_CHANGES_NOT_STAGED_FG),
+            ALL_CHANGES_STAGED: (theme.GIT_ALL_CHANGES_STAGED_BG, theme.GIT_ALL_CHANGES_STAGED_FG),
+            CLEAN: (theme.GIT_CLEAN_BG, theme.GIT_CLEAN_FG),
             UNKNOWN: (colors.RED, colors.WHITE),
         }
 

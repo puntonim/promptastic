@@ -1,6 +1,6 @@
 import sys
 
-from segments import Segment
+from segments import Segment, theme
 from utils import colors, glyphs
 
 
@@ -22,8 +22,8 @@ class Divider(Segment):
 
 
 class ExitCode(Segment):
-    bg = colors.background(colors.RED)
-    fg = colors.foreground(colors.WHITE)
+    bg = colors.background(theme.EXITCODE_BG)
+    fg = colors.foreground(theme.EXITCODE_FG)
 
     def init(self):
         self.text = ' {} '.format(glyphs.CROSS)
@@ -33,7 +33,7 @@ class ExitCode(Segment):
 
 
 class Padding(Segment):
-    bg = colors.background(colors.EXTRA_DARK_GREY)
+    bg = colors.background(theme.PADDING_BG)
 
     def init(self, amount):
         self.text = ''.ljust(amount)
