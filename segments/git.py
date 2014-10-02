@@ -8,9 +8,7 @@ import glyphs
 
 
 class Git(Segment):
-    def __init__(self):
-        super().__init__()
-
+    def init(self):
         branch_name = self.get_branch_name()
 
         if not branch_name:

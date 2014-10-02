@@ -9,8 +9,7 @@ class CurrentDir(Segment):
     bg = colors.background(colors.DARK_GREY)
     fg = colors.foreground(colors.LIGHT_GREY)
 
-    def __init__(self, cwd):
-        super().__init__()
+    def init(self, cwd):
         home = path.expanduser('~')
         self.text = cwd.replace(home, '~')
 
@@ -19,8 +18,7 @@ class ReadOnly(Segment):
     bg = colors.background(colors.LIGHT_GREY)
     fg = colors.foreground(colors.RED)
 
-    def __init__(self, cwd):
-        super().__init__()
+    def init(self, cwd):
         self.text = ' {} '.format(glyphs.LOCK)
 
         if access(cwd, W_OK):
@@ -31,9 +29,7 @@ class Venv(Segment):
     bg = colors.background(colors.SMERALD)
     fg = colors.foreground(colors.EXTRA_LIGHT_GREY)
 
-    def __init__(self):
-        super().__init__()
-
+    def init(self):
         env = getenv('VIRTUAL_ENV')
         if env is None:
             self.active = False

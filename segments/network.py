@@ -8,8 +8,7 @@ class Ssh(Segment):
     bg = colors.background(colors.LIGHT_ORANGE)
     fg = colors.foreground(colors.WHITE) + colors.bold()
 
-    def __init__(self):
-        super().__init__()
+    def init(self):
         self.text = 'SSH'
 
         if not getenv('SSH_CLIENT'):

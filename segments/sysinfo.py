@@ -14,8 +14,7 @@ class Jobs(Segment):
     bg = colors.background(colors.DARK_PURPLE)
     fg = colors.foreground(colors.WHITE)
 
-    def __init__(self):
-        super().__init__()
+    def init(self):
         pppid = Popen(['ps', '-p', str(getppid()), '-oppid='], stdout=PIPE).communicate()[0].strip()
         output = Popen(['ps', '-a', '-o', 'ppid'], stdout=PIPE).communicate()[0]
         num_jobs = len(findall(bytes(pppid), output)) - 1
@@ -66,8 +65,7 @@ class Time(Segment):
     bg = colors.background(colors.DARKER_GREY)
     fg = colors.foreground(colors.MID_DARK_GREY)
 
-    def __init__(self):
-        super().__init__()
+    def init(self):
         now = datetime.now().time()
         self.text = '{} {}:{}:{}'.format(
             glyphs.TIME,
@@ -81,8 +79,7 @@ class UserAtHost(Segment):
     bg = colors.background(colors.SMERALD)
     fg = colors.foreground(colors.WHITE)
 
-    def __init__(self):
-        super().__init__()
+    def init(self):
         self.text = '{}@{}'.format(
             getuser(),
             gethostname().replace('.local', '')

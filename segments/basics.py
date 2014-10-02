@@ -26,8 +26,7 @@ class ExitCode(Segment):
     bg = colors.background(colors.RED)
     fg = colors.foreground(colors.WHITE)
 
-    def __init__(self):
-        super().__init__()
+    def init(self):
         self.text = ' {} '.format(glyphs.CROSS)
 
         if argv[1] == '0':
@@ -37,6 +36,5 @@ class ExitCode(Segment):
 class Padding(Segment):
     bg = colors.background(colors.EXTRA_DARK_GREY)
 
-    def __init__(self, amount):
-        super().__init__()
+    def init(self, amount):
         self.text = ''.ljust(amount)
