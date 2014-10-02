@@ -69,7 +69,7 @@ class Prompt:
             return [x for x in segments if x.active]
 
         def remove_duplicated_dividers(segments):
-            # Collect in a list all indexes of elements in `segment` which must be removed (because
+            # Collect in a list all indexes of elements in `segments` which must be removed ('cause
             # they are duplicated dividers).
             to_remove = []
             for i in range(len(segments)-1):
@@ -82,10 +82,20 @@ class Prompt:
                 segments.pop(i - counter)
             return segments
 
+        def strip():
+            # Remove initial Divider, if any.
+            if isinstance(self.first_line_left[0], basics.Divider):
+                self.first_line_left.pop(0)
+
+            # Remove final Divider, if any.
+            if isinstance(self.first_line_right[-1], basics.Divider):
+                self.first_line_right.pop(-1)
+
         self.first_line_left = remove_duplicated_dividers(remove_inactive(self.first_line_left))
         self.first_line_right = remove_duplicated_dividers(remove_inactive(self.first_line_right))
         # Commented out because the last_line is always safe.
         #self.last_line = remove_duplicated_dividers(remove_inactive(self.last_line))
+        strip()
 
     def _compute_padding_length_first_line(self):
         """
@@ -93,8 +103,8 @@ class Prompt:
         the left part and the right part.
         """
         # Check whether the right part starts with a Divider.
-        right_starts_w_divider = (True if isinstance(self.first_line_right[0], basics.Divider)
-                                  else False)
+        right_starts_w_divider = (True if self.first_line_right and
+                                  isinstance(self.first_line_right[0], basics.Divider) else False)
 
         # Terminal width.
         cols = get_terminal_columns_n()
