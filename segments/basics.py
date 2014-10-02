@@ -13,7 +13,7 @@ class Root(Segment):
 
 
 class Divider(Segment):
-    text = glyphs.DIVIDER_RIGHT
+    text = theme.DIVIDER_GLYPH
 
     def set_colors(self, prev, next):
         self.bg = next.bg if next and next.bg else Padding.bg
