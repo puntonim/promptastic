@@ -1,5 +1,5 @@
-from os import popen, getcwd, getenv, sep, path, chdir
-from sys import exit, stdout
+import os
+import sys
 
 from glyphs import ESCLAMATION
 import colors
@@ -26,10 +26,10 @@ def print_warning(text):
     )
 
     output = '{} {}'.format(cross_rendered, text_rendered)
-    if hasattr(stdout, 'buffer'):
-        stdout.buffer.write(output.encode('utf-8'))
+    if hasattr(sys.stdout, 'buffer'):
+        sys.stdout.buffer.write(output.encode('utf-8'))
     else:
-        stdout.write(output.render())
+        sys.stdout.write(output.render())
 
 
 def get_valid_cwd():
@@ -40,16 +40,16 @@ def get_valid_cwd():
     invalid dir (because this is what the OS thinks) but we display a warning.
     """
     try:
-        cwd = getcwd()
+        cwd = os.getcwd()
     except FileNotFoundError:
-        cwd = getenv('PWD')  # This is where the OS thinks we are.
-        parts = cwd.split(sep)
+        cwd = os.getenv('PWD')  # This is where the OS thinks we are.
+        parts = cwd.split(os.sep)
         up = cwd
-        while parts and not path.exists(up):
+        while parts and not os.path.exists(up):
             parts.pop()
-            up = sep.join(parts)
+            up = os.sep.join(parts)
         try:
-            chdir(up)
+            os.chdir(up)
         except Exception:
             print_warning('Your current directory is invalid!')
             exit(1)
@@ -59,5 +59,5 @@ def get_valid_cwd():
 
 
 def get_terminal_columns_n():
-    _, columns = popen('stty size', 'r').read().split()
+    _, columns = os.popen('stty size', 'r').read().split()
     return int(columns)

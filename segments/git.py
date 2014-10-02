@@ -1,6 +1,6 @@
-from os import getenv
-from re import findall
-from subprocess import Popen, PIPE
+import os
+import re
+import subprocess
 
 from segments import Segment
 import colors
@@ -35,7 +35,8 @@ class Git(Segment):
         try:
             # See:
             # http://git-blame.blogspot.com/2013/06/checking-current-branch-programatically.html
-            p = Popen(['git', 'symbolic-ref', '-q', 'HEAD'], stdout=PIPE, stderr=PIPE)
+            p = subprocess.Popen(['git', 'symbolic-ref', '-q', 'HEAD'],
+                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, err = p.communicate()
 
             if 'not a git repo' in str(err).lower():
@@ -47,9 +48,9 @@ class Git(Segment):
 
     @staticmethod
     def get_git_status_output():
-        return Popen(['git', 'status', '--ignore-submodules'],
-                     env={"LANG": "C", "HOME": getenv("HOME")},
-                     stdout=PIPE).communicate()[0].decode().lower()
+        return subprocess.Popen(['git', 'status', '--ignore-submodules'],
+                     env={"LANG": "C", "HOME": os.getenv("HOME")},
+                     stdout=subprocess.PIPE).communicate()[0].decode().lower()
 
     def get_working_dir_status_decorations(self):
         # Working directory statuses:
@@ -99,7 +100,7 @@ class Git(Segment):
             'behind': glyphs.LEFT_ARROW,
         }
 
-        match = findall(
+        match = re.findall(
             r'your branch is (ahead|behind).*?(\d+) commit', self.git_status_output)
 
         if not match:

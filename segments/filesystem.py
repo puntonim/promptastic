@@ -1,4 +1,4 @@
-from os import path, access, W_OK, getenv
+import os
 
 from segments import Segment
 import colors
@@ -10,7 +10,7 @@ class CurrentDir(Segment):
     fg = colors.foreground(colors.LIGHT_GREY)
 
     def init(self, cwd):
-        home = path.expanduser('~')
+        home = os.path.expanduser('~')
         self.text = cwd.replace(home, '~')
 
 
@@ -21,7 +21,7 @@ class ReadOnly(Segment):
     def init(self, cwd):
         self.text = ' {} '.format(glyphs.LOCK)
 
-        if access(cwd, W_OK):
+        if os.access(cwd, os.W_OK):
             self.active = False
 
 
@@ -30,10 +30,10 @@ class Venv(Segment):
     fg = colors.foreground(colors.EXTRA_LIGHT_GREY)
 
     def init(self):
-        env = getenv('VIRTUAL_ENV')
+        env = os.getenv('VIRTUAL_ENV')
         if env is None:
             self.active = False
             return
 
-        env_name = path.basename(env)
+        env_name = os.path.basename(env)
         self.text = '{} {}'.format(glyphs.VIRTUAL_ENV, env_name)

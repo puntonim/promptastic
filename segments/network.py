@@ -1,4 +1,4 @@
-from os import getenv
+import os
 
 from segments import Segment
 import colors
@@ -11,5 +11,5 @@ class Ssh(Segment):
     def init(self):
         self.text = 'SSH'
 
-        if not getenv('SSH_CLIENT'):
+        if not os.getenv('SSH_CLIENT'):
             self.active = False

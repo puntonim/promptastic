@@ -1,4 +1,4 @@
-from sys import argv
+import sys
 
 from segments import Segment
 import colors
@@ -29,7 +29,7 @@ class ExitCode(Segment):
     def init(self):
         self.text = ' {} '.format(glyphs.CROSS)
 
-        if argv[1] == '0':
+        if sys.argv[1] == '0':
             self.active = False
 
 

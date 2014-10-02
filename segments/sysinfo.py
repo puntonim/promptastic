@@ -1,9 +1,9 @@
-from subprocess import Popen, PIPE
-from os import getppid
-from re import findall
+import subprocess
+import os
+import re
 from datetime import datetime
-from getpass import getuser
-from socket import gethostname
+import getpass
+import socket
 
 from segments import Segment
 import colors
@@ -15,9 +15,11 @@ class Jobs(Segment):
     fg = colors.foreground(colors.WHITE)
 
     def init(self):
-        pppid = Popen(['ps', '-p', str(getppid()), '-oppid='], stdout=PIPE).communicate()[0].strip()
-        output = Popen(['ps', '-a', '-o', 'ppid'], stdout=PIPE).communicate()[0]
-        num_jobs = len(findall(bytes(pppid), output)) - 1
+        pppid = subprocess.Popen(['ps', '-p', str(os.getppid()), '-oppid='],
+                                 stdout=subprocess.PIPE).communicate()[0].strip()
+        output = subprocess.Popen(['ps', '-a', '-o', 'ppid'],
+                                  stdout=subprocess.PIPE).communicate()[0]
+        num_jobs = len(re.findall(bytes(pppid), output)) - 1
 
         self.text = '{} {}'.format(glyphs.HOURGLASS, num_jobs)
 
@@ -81,6 +83,6 @@ class UserAtHost(Segment):
 
     def init(self):
         self.text = '{}@{}'.format(
-            getuser(),
-            gethostname().replace('.local', '')
+            getpass.getuser(),
+            socket.gethostname().replace('.local', '')
         )

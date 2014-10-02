@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from sys import stdout
+import sys
 
 from segments import basics, sysinfo, filesystem, git, network
 from utils import get_valid_cwd, get_terminal_columns_n
@@ -172,7 +172,7 @@ if __name__ == '__main__':
     # Last line.
     prompt.last_line.append(basics.Root())
 
-    if hasattr(stdout, 'buffer'):
-        stdout.buffer.write(prompt.render().encode('utf-8'))
+    if hasattr(sys.stdout, 'buffer'):
+        sys.stdout.buffer.write(prompt.render().encode('utf-8'))
     else:
-        stdout.write(prompt.render())
+        sys.stdout.write(prompt.render())

@@ -2,7 +2,8 @@
 # For instructions on how to use the promptastic.py script, see the README.
 
 # The theme defines the colors used to draw individual segments.
-# Themes are collected in the `themes` directory. Their names match their file name.
+# Themes are collected in the `themes` directory. Their names match their file name (w/o the file
+# extension .py).
 THEME = 'default'
 
 # Segments are the single elements which compose the Bash shell prompt.
