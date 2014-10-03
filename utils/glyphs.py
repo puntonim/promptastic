@@ -1,8 +1,20 @@
-DIVIDER_RIGHT = chr(57520)
-DIVIDER_RIGHT_SOFT = chr(57521)
-DIVIDER_LEFT = chr(57522)
-DIVIDER_LEFT_SOFT = chr(57523)
-BRANCH = chr(57504)
+"""
+Check out this website for the entire Unicode characters list:
+http://unicode-table.com
+"""
+import config
+
+
+# *_PATCHED glyphs exist only in patched fonts (available at:
+# https://github.com/Lokaltog/powerline-fonts).
+DIVIDER_RIGHT_PATCHED = chr(57520)
+DIVIDER_RIGHT_SOFT_PATCHED = chr(57521)
+DIVIDER_LEFT_PATCHED = chr(57522)
+DIVIDER_LEFT_SOFT_PATCHED = chr(57523)
+BRANCH1_PATCHED = chr(57504)
+
+# All other glyphs exist in any font.
+BRANCH2 = chr(11075)
 TIME = chr(8986)
 VIRTUAL_ENV = chr(9445)
 TIME = chr(8986)
@@ -26,3 +38,9 @@ PEN = chr(63490)
 SUNNY = chr(9728)
 CLOUDY = chr(9729)
 RAINY = chr(9730)
+
+# Branch and divider glyphs are different depending on whether the current theme is using
+# patched fonts or not.
+BRANCH = BRANCH1_PATCHED if config.PATCHED_FONTS else BRANCH2
+DIVIDER = DIVIDER_RIGHT_PATCHED if config.PATCHED_FONTS else ''
+WRITE_ONLY = LOCK if config.PATCHED_FONTS else PEN

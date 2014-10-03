@@ -1,6 +1,11 @@
 # This is the configuration file which helps you customize your 'promptastic' installation.
 # For instructions on how to use the promptastic.py script, see the README.
 
+# Patched fonts are special fonts best suited for terminals
+# True if the current terminal is using patched fonts (available at:
+# https://github.com/Lokaltog/powerline-fonts).
+PATCHED_FONTS = True
+
 # The theme defines the colors used to draw individual segments.
 # Themes are collected in the `themes` directory. Their names match their file name (w/o the file
 # extension .py).

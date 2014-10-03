@@ -1,15 +1,21 @@
 # Works only with Python3
+# Check out this website which is a way better:
+# http://unicode-table.com
 
 import sys
 
 glyphs = {
-    'DIVIDER_RIGHT': '',
-    'DIVIDER_RIGHT_SOFT': '',
-    'DIVIDER_LEFT': '',
-    'DIVIDER_LEFT_SOFT': '',
-    'BRANCH': '',
-    'ELLIPSIS': '⋯',
-    'LINE_NUMBER': '',
+    # *_PATCHED glyphs exist only in patched fonts.
+    'DIVIDER_RIGHT_PATCHED': '',
+    'DIVIDER_RIGHT_SOFT_PATCHED': '',
+    'DIVIDER_LEFT_PATCHED': '',
+    'DIVIDER_LEFT_SOFT_PATCHED': '',
+    'BRANCH1_PATCHED': '',
+    'ELLIPSIS_PATCHED': '⋯',
+    'LINE_NUMBER_PATCHED': '',
+
+    # All other glyphs exist in any font.
+    'BRANCH2': '⭃',
     'TIME1': '⌚',
     'TIME2': '⏰',
     'TIME3': '꒾',
@@ -144,3 +150,4 @@ if __name__ == '__main__':
         pass
 
     print_collected_chars()
+    print('\n* Check out this website which is a way better: http://unicode-table.com')

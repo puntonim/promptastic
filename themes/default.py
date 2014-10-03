@@ -1,7 +1,5 @@
-from utils import colors, glyphs
+from utils import colors
 
-# Glyph used as divider amongst segments.
-DIVIDER_GLYPH = glyphs.DIVIDER_RIGHT
 
 # Segments colors.
 USERATHOST_BG = colors.SMERALD
