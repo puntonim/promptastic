@@ -4,12 +4,9 @@ Promptastic: fantastic prompt for Bash
 *Promptastic* is a flavored **prompt** for [Bash](http://en.wikipedia.org/wiki/Bash_(Unix_shell))
 which provides info about the running **system** and **environment** in a fancy **colored** output.
 It works under **Mac OS X** and **Linux**.
-
 ![Promptastic screenshot](https://cloud.githubusercontent.com/assets/6423485/4512433/51131d12-4b40-11e4-8ceb-cac7b01799da.png)
-
 See [Segments.md](https://github.com/nimiq/promptastic/blob/master/Segments.md) for more info and
-screenshots.
-
+screenshots.   
 Inspired by [Powerline](https://github.com/Lokaltog/powerline)
 and [Powerline-shell](https://github.com/milkbikis/powerline-shell/).
 
