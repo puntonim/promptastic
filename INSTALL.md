@@ -26,6 +26,6 @@ Steps
         ./install.py
 3. *Optional* - Edit the file `config.py`, in particular:
     - set `PATCHED_FONTS` to `False` if you are not using patched fonts;
-    - set `THEME` to your favorite theme;
+    - set `THEME` to your favorite theme or create a new one copying one of the existent themes;
     - enable/disable segments.
 4. Logout and login again in the shell to see the new prompt!
