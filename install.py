@@ -57,8 +57,8 @@ class ConfigFile:
     def install(self):
         print('\nInstalling to {}...'.format(self.path), end=' ')
         with open(os.path.expanduser(self.path), 'a') as file:
-            file.write('\r\n\r\n' + FUNCTION_CMD.format(self._get_cwd()) + '\r\n')
-            file.write(PROMPT_CMD + '\r\n')
+            file.write('\n\n' + FUNCTION_CMD.format(self._get_cwd()) + '\n')
+            file.write(PROMPT_CMD + '\n')
         print('done')
 
 

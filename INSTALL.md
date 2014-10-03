@@ -4,7 +4,7 @@ Installation
 Requirements
 ------------
 - Mac OS X or Linux  
-Promptastic is mainly developed for Mac OS X but it should work smoothly under linux too.
+Promptastic is mainly developed for Mac OS X but it works smoothly under Linux too.
 - Python 3+  
 - A terminal with support for ANSI colors  
 Promptastic uses [ANSI color codes](http://en.wikipedia.org/wiki/ANSI_escape_code)
@@ -28,3 +28,4 @@ Steps
     - set `PATCHED_FONTS` to `False` if you are not using patched fonts;
     - set `THEME` to your favorite theme;
     - enable/disable segments.
+4. Logout and login again in the shell to see the new prompt!
