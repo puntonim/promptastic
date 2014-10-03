@@ -5,11 +5,12 @@
 In order to install promptastic a few lines have to be appended to those files sourced every time
 a Bash shell is invoked.
 The affected files (as explained at http://mywiki.wooledge.org/DotFiles) are:
-~/.bash_profile - read every time a Bash shell is invoked,
+~/.profile (Linux) or ~/.bash_profile (Mac OS X) - read every time a Bash shell is invoked,
 ~/.bashrc - read when a subshell is invoked with a command like `bash`.
 """
 import re
 import os
+import platform
 
 
 FUNCTION_CMD = 'function _update_ps1() {{ export PS1="$({}/promptastic.py $?)"; }}'
@@ -63,7 +64,11 @@ class ConfigFile:
 
 
 class BashProfile(ConfigFile):
-    path = '~/.bash_profile'
+    path = '~/.profile'
+
+    # For Mac OS X the file to edit is: ~/.bash_profile.
+    if 'darwin' in platform.system().lower():
+        path = '~/.bash_profile'
 
 
 class BashRc(ConfigFile):
