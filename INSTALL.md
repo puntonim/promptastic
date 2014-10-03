@@ -19,13 +19,11 @@ terminal to use them. My favorite is
 Steps
 -----
 1. Clone this repository:
-```
-git clone https://github.com/nimiq/promptastic.git
-```
+
+        git clone https://github.com/nimiq/promptastic.git
 2. Run:
-```
-./install.py
-```
+
+        ./install.py
 3. *Optional* - Edit the file `config.py`, in particular:
     - set `PATCHED_FONTS` to `False` if you are not using patched fonts;
     - set `THEME` to your favorite theme;
