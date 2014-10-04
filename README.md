@@ -9,8 +9,10 @@ It works under **Mac OS X** and **Linux**.
 
 See [Info.md](https://github.com/nimiq/promptastic/blob/master/Info.md) for more info and
 screenshots.   
-Inspired by [Powerline](https://github.com/Lokaltog/powerline)
-and [Powerline-shell](https://github.com/milkbikis/powerline-shell/).
+This project is heavily inspired by [Powerline](https://github.com/Lokaltog/powerline)
+and [Powerline-shell](https://github.com/milkbikis/powerline-shell/) which I have been using for
+a long time and realized that the former is complicated to install, slightly bloated and more
+suitable for Vi users, while the latter is unmaintained and too buggy.
 
 Features
 --------

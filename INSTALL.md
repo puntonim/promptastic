@@ -14,7 +14,8 @@ by setting the terminal as `xterm-256color`.
 - *Optional* - Patched fonts for better-looking glyphs  
 Install patched [powerline-fonts](https://github.com/Lokaltog/powerline-fonts) and set the 
 terminal to use them. My favorite is
-[Sauce Code Powerline Light](https://github.com/Lokaltog/powerline-fonts/tree/master/SourceCodePro).
+[Sauce Code Powerline Light](https://github.com/Lokaltog/powerline-fonts/tree/master/SourceCodePro)
+.
 
 Steps
 -----

@@ -1,26 +1,43 @@
 Configuration
 =============
-TODO: explain what config.py is, mention the 3 elements (theme, patched fonts, segments)
+*Promptastic* can be customized by editing the file `config.py`. This file contains 3 elements:
+**theme**, **patched fonts flag**, **segments**. 
 
 Themes
 ------
-### Default
-TODO: say that all screenshots in the Segments section are take with the default theme
+Themes determine the set of colors used in the prompt. There are a bunch of themes already
+stored in the `themes` folder. New themes can be easily created copying one of those
+already existent.
 
-### Light
-TODO: screenshot
+### Default theme: `default.py`
+It's a dark-colors theme, best fitting a terminal with a dark background.
+All screenshots in the next sections are based on this theme. It's my favorite!
+
+### Light theme: `light.py`
+It's a light-colors theme, best fitting a terminal with a light background, like the default
+*Terminal* app in Mac OS X.
+
+![Light theme](https://cloud.githubusercontent.com/assets/6423485/4515595/ab434f92-4bc6-11e4-92d4-25f7a23aa659.png)
 
 Patched fonts
 -------------
-TODO: explain what config.py is, post a screenshot with no patched fonts
+[Patched powerline-fonts](https://github.com/Lokaltog/powerline-fonts) can be used for
+better-looking glyphs. My favorite is
+[Sauce Code Powerline Light](https://github.com/Lokaltog/powerline-fonts/tree/master/SourceCodePro)
+. See [INSTALL.md](https://github.com/nimiq/promptastic/blob/master/INSTALL.md) in order to
+install patched fonts.      
+All screenshots in the next sections were taken in terminals using *Sauce Code Powerline Light*
+patched font. A terminal with no patched fonts looks like this:
+
+![No patched fonts](https://cloud.githubusercontent.com/assets/6423485/4515599/b449a384-4bc6-11e4-8992-ed7ef91c6210.png)
 
 
 Segments
 ========
-Promptastic creates the *flavored* prompt appending several segments.
-Any segment can be enabled/disabled via the `config.py` file.
+*Promptastic* creates the *flavored* prompt appending several segments.
+Any segment can be enabled/disabled in the `config.py` file.
 
-The following section lists all the segments together with their details.
+The following sections list all the segments and their .
 
 User at host
 ------------
