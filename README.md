@@ -8,7 +8,8 @@ It works under **Mac OS X** and **Linux**.
 ![Promptastic screenshot](https://cloud.githubusercontent.com/assets/6423485/4512433/51131d12-4b40-11e4-8ceb-cac7b01799da.png)
 
 See [Info.md](https://github.com/nimiq/promptastic/blob/master/Info.md) for more info and
-screenshots.   
+screenshots.
+
 This project is heavily inspired by [Powerline](https://github.com/Lokaltog/powerline)
 and [Powerline-shell](https://github.com/milkbikis/powerline-shell/) which I have been using for
 a long time and realized that the former is complicated to install, slightly bloated and more
