@@ -8,14 +8,13 @@ It works under **Mac OS X** and **Linux**.
 ![Promptastic screenshot](https://cloud.githubusercontent.com/assets/6423485/4512433/51131d12-4b40-11e4-8ceb-cac7b01799da.png)
 
 See [Info.md](https://github.com/nimiq/promptastic/blob/master/Info.md) for more info and
-screenshots.
-
+screenshots.   
 Inspired by [Powerline](https://github.com/Lokaltog/powerline)
 and [Powerline-shell](https://github.com/milkbikis/powerline-shell/).
 
 Features
 --------
-- Shows the name of the logged user, the host name, the current directory path and the time;
+- shows the name of the logged user, the host name, the current directory path and the time;
 - provides a feedback if the current directory is read-only or is not a valid path;
 - warns if the last command exited with a failure code;
 - displays the number of active jobs;
