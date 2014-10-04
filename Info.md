@@ -69,6 +69,19 @@ The number of active jobs, if any.
 
 Git
 ---
-TODO
+If the current directory is a Git repository, the name of the current branch is displayed and:
+
+- the color of the segment reveals the general status of the working directory:
+  - *green* (e.g. 2nd prompt line in the screenshot) when the working directory is clean;
+  - *pink* (e.g. 3rd prompt line in the screenshot) when the working directory is dirty (untracked
+  files or changes not staged for commit);
+  - *orange* (e.g. 4th prompt line in the screenshot) when all changes are staged for commit;
+- glyphs are added to manifest detailed statuses:
+  - an *umbrella* (e.g. 3rd prompt line in the screenshot) when there are untracked files;
+  - a *cloud* (e.g. 5th prompt line in the screenshot) when there are changes not staged for
+  commit, but no untracked files;
+  - a *sun* (e.g. 4th prompt line in the screenshot) when all changes are staged for commit;
+  - a *number n* plus a *arrow* right/left oriented (e.g. 6th and 8th prompt lines in the
+  screenshot) when the current branch is *n* commits ahead/behind origin.
 
 ![Git segment](https://cloud.githubusercontent.com/assets/6423485/4515226/aa84c14a-4bb1-11e4-8ce3-a593e626aa55.png)
