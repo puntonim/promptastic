@@ -20,6 +20,7 @@ PROMPT_CMD = 'export PROMPT_COMMAND="_update_ps1"'
 class ConfigFile:
     def __init__(self):
         self.is_already_setup = self._is_already_setup()
+        self.enabled = True
 
     @staticmethod
     def _get_cwd(expanded=True):
@@ -64,11 +65,13 @@ class ConfigFile:
 
 
 class BashProfile(ConfigFile):
-    path = '~/.profile'
+    path = '~/.bash_profile'
 
-    # For Mac OS X the file to edit is: ~/.bash_profile.
-    if 'darwin' in platform.system().lower():
-        path = '~/.bash_profile'
+    def __init__(self):
+        super().__init__()
+        # This file need to edited exclusively for Mac OS X machines.
+        if not 'darwin' in platform.system().lower():
+            self.enabled = False
 
 
 class BashRc(ConfigFile):
@@ -82,7 +85,7 @@ if __name__ == '__main__':
     bash_profile = BashProfile()
     bash_rc = BashRc()
 
-    to_be_installed = [x for x in (bash_profile, bash_rc) if not x.is_already_setup]
+    to_be_installed = [x for x in (bash_profile, bash_rc) if not x.is_already_setup and x.enabled]
 
     if to_be_installed:
         text = ' and '.join([x.path for x in to_be_installed])
