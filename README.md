@@ -27,7 +27,7 @@ environment;
 - adds a special label in case of SSH connection;
 - any feature can be enabled/disabled via a config file;
 - colored output: there are a bunch of themes to choose from and new themes can be easily created;
-- simple and automatic installation procedure;
+- simple and automatic [installation procedure](https://github.com/nimiq/promptastic/blob/master/INSTALL.md);
 - written in Python.
 
 More details in [Info.md](https://github.com/nimiq/promptastic/blob/master/Info.md).
