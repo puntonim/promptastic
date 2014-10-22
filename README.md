@@ -13,7 +13,7 @@ screenshots.
 This project is heavily inspired by [Powerline](https://github.com/Lokaltog/powerline)
 and [Powerline-shell](https://github.com/milkbikis/powerline-shell/) which I have been using for
 a long time and realized that the former is complicated to install, slightly bloated and more
-suitable for Vi users, while the latter is unmaintained and a bit buggy.
+suitable for [Vi](http://en.wikipedia.org/wiki/Vi) users, while the latter is unmaintained and a bit buggy.
 
 Features
 --------
