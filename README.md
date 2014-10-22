@@ -15,6 +15,8 @@ and [Powerline-shell](https://github.com/milkbikis/powerline-shell/) which I hav
 a long time and realized that the former is complicated to install, slightly bloated and more
 suitable for [Vi](http://en.wikipedia.org/wiki/Vi) users, while the latter is unmaintained and a bit buggy.
 
+*Promptastic* has a [project page](http://painl.es/promptastic/) in my website.
+
 Features
 --------
 - shows the name of the logged user, the host name, the current directory path and the time;
