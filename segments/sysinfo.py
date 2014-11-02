@@ -1,7 +1,7 @@
 import subprocess
 import os
 import re
-from datetime import datetime
+import time
 import getpass
 import socket
 
@@ -67,12 +67,9 @@ class Time(Segment):
     fg = colors.foreground(theme.TIME_FG)
 
     def init(self):
-        now = datetime.now().time()
-        self.text = '{} {}:{}:{}'.format(
+        self.text = '{} {}'.format(
             glyphs.TIME,
-            now.hour,
-            now.minute,
-            now.second
+            time.strftime("%H:%M:%S")
         )
 
 
