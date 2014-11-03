@@ -47,9 +47,13 @@ class Git(Segment):
 
     @staticmethod
     def get_git_status_output():
-        return subprocess.Popen(['git', 'status', '--ignore-submodules'],
-                     env={"LANG": "C", "HOME": os.getenv("HOME")},
-                     stdout=subprocess.PIPE).communicate()[0].decode().lower()
+        out, err = subprocess.Popen(['git', 'status', '--ignore-submodules'],
+                                    env={"LANG": "C", "HOME": os.getenv("HOME")},
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        if err:
+            return ''  # An empty text as something went wrong so we cannot determine the
+                       # current git status (it happens f.i. when cd-ing into .git folder).
+        return out.decode().lower()
 
     def get_working_dir_status_decorations(self):
         # Working directory statuses:
