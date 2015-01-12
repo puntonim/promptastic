@@ -14,7 +14,7 @@ import platform
 
 
 FUNCTION_CMD = 'function _update_ps1() {{ export PS1="$({}/promptastic.py $?)"; }}'
-PROMPT_CMD = 'export PROMPT_COMMAND="_update_ps1"'
+PROMPT_CMD = 'export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"'
 
 
 class ConfigFile:
