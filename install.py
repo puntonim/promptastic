@@ -1,13 +1,17 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """
 In order to install promptastic a few lines have to be appended to those files sourced every time
 a Bash shell is invoked.
 The affected files (as explained at http://mywiki.wooledge.org/DotFiles) are:
 ~/.profile (Linux) or ~/.bash_profile (Mac OS X) - read every time a Bash shell is invoked,
 ~/.bashrc - read when a subshell is invoked with a command like `bash`.
+
+
+The first few lines make sure the rest of the code is compatible with both Python 2 and 3.
 """
+from __future__ import print_function
+FileNotFoundError = getattr(__builtins__, 'FileNotFoundError', IOError)
+input = getattr(__builtins__, 'raw_input', input)
+
 import re
 import os
 import platform
@@ -17,7 +21,7 @@ FUNCTION_CMD = 'function _update_ps1() {{ export PS1="$({}/promptastic.py $?)"; 
 PROMPT_CMD = 'export PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"'
 
 
-class ConfigFile:
+class ConfigFile(object):
     def __init__(self):
         self.is_already_setup = self._is_already_setup()
         self.enabled = True
@@ -36,9 +40,11 @@ class ConfigFile:
             return False
 
         # Check for `PROMPT_CMD`:
-        match = re.search(r'^[ \t]*{}[ \t;]*$'.format(PROMPT_CMD), content, re.M)
+        regex = r'^[ \t]*{}[ \t;]*$'.format(
+            re.escape(PROMPT_CMD))
+        match = re.search(regex, content, re.M)
         if not match:
-            # So the file does not contain `PROMPT_CMD`.
+            # So the file does NOT contain `PROMPT_CMD`.
             return False
 
         # So the file does contain `PROMPT_CMD`.
@@ -68,7 +74,7 @@ class BashProfile(ConfigFile):
     path = '~/.bash_profile'
 
     def __init__(self):
-        super().__init__()
+        super(BashProfile, self).__init__()
         # This file need to edited exclusively for Mac OS X machines.
         if not 'darwin' in platform.system().lower():
             self.enabled = False
