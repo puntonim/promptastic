@@ -6,6 +6,8 @@ import sys
 from segments import basics, sysinfo, filesystem, git, network
 from utils.sys import get_valid_cwd, get_terminal_columns_n
 
+FileNotFoundError = getattr(__builtins__, 'FileNotFoundError', IOError)
+
 
 class Prompt:
     def __init__(self):
