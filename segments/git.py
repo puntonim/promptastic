@@ -107,5 +107,5 @@ class Git(Segment):
         amount = match[0][1]
         amount = getattr(glyphs, 'N{}'.format(amount)) if int(amount) <= 10 else amount
 
-        return '{}{} '.format(amount, DIRECTIONS_GLYPHS[direction]) if direction == 'ahead' else \
-               '{}{} '.format(DIRECTIONS_GLYPHS[direction], amount)
+        return amount + DIRECTIONS_GLYPHS[direction] + ' ' if direction == 'ahead' else \
+               DIRECTIONS_GLYPHS[direction] + amount + ' '

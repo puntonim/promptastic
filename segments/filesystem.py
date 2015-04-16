@@ -35,4 +35,4 @@ class Venv(Segment):
             return
 
         env_name = os.path.basename(env)
-        self.text = '{} {}'.format(glyphs.VIRTUAL_ENV, env_name)
+        self.text = glyphs.VIRTUAL_ENV + ' ' + env_name
