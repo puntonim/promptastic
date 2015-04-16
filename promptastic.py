@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 import sys
 
 from segments import basics, sysinfo, filesystem, git, network
 from utils.sys import get_valid_cwd, get_terminal_columns_n
 
+
+# Python 2 and 3 compatibility: FileNotFoundError in Python 3, IOError in Python 2.
 FileNotFoundError = getattr(__builtins__, 'FileNotFoundError', IOError)
+
+
+# Python 2 and 3 compatibility: `sys.stdout.buffer.write` in Python 3, `sys.stdout.write`
+# in Python 2.
+try:
+    write = sys.stdout.buffer.write
+except AttributeError:
+    write = sys.stdout.write
 
 
 class Prompt:
@@ -29,7 +38,7 @@ class Prompt:
         last_line = self._render_last_line()
 
         # Return the entire prompt.
-        return first_line + last_line
+        return (first_line + last_line).encode('utf-8')
 
     def _render_first_line(self):
         # List of segments for the first line (left part, padding, right part).
@@ -86,11 +95,11 @@ class Prompt:
 
         def strip():
             # Remove initial Divider, if any.
-            if isinstance(self.first_line_left[0], basics.Divider):
+            if self.first_line_left and isinstance(self.first_line_left[0], basics.Divider):
                 self.first_line_left.pop(0)
 
             # Remove final Divider, if any.
-            if isinstance(self.first_line_right[-1], basics.Divider):
+            if self.first_line_right and isinstance(self.first_line_right[-1], basics.Divider):
                 self.first_line_right.pop(-1)
 
         self.first_line_left = remove_duplicated_dividers(remove_inactive(self.first_line_left))
@@ -174,7 +183,4 @@ if __name__ == '__main__':
     # Last line.
     prompt.last_line.append(basics.Root())
 
-    if hasattr(sys.stdout, 'buffer'):
-        sys.stdout.buffer.write(prompt.render().encode('utf-8'))
-    else:
-        sys.stdout.write(prompt.render())
+    write(prompt.render())

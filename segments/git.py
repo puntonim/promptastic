@@ -21,13 +21,7 @@ class Git(Segment):
         self.fg = colors.foreground(git_colors[1])
 
         current_commit_text = self.get_current_commit_decoration_text()
-
-        self.text = '{} {}{} {}'.format(
-            wd_glyph,
-            branch_name,
-            glyphs.BRANCH,
-            current_commit_text,
-        )
+        self.text = wd_glyph + ' ' + branch_name + glyphs.BRANCH + ' ' + current_commit_text
 
     @staticmethod
     def get_branch_name():

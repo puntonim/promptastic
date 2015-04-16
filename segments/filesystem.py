@@ -18,7 +18,7 @@ class ReadOnly(Segment):
     fg = colors.foreground(theme.READONLY_FG)
 
     def init(self, cwd):
-        self.text = ' {} '.format(glyphs.WRITE_ONLY)
+        self.text = ' ' + glyphs.WRITE_ONLY + ' '
 
         if os.access(cwd, os.W_OK):
             self.active = False

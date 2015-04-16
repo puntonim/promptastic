@@ -20,7 +20,7 @@ class Jobs(Segment):
                                   stdout=subprocess.PIPE).communicate()[0]
         num_jobs = len(re.findall(bytes(pppid), output)) - 1
 
-        self.text = '{} {}'.format(glyphs.HOURGLASS, num_jobs)
+        self.text = glyphs.HOURGLASS + ' ' + str(num_jobs)
 
         if not num_jobs:
             self.active = False
@@ -67,10 +67,7 @@ class Time(Segment):
     fg = colors.foreground(theme.TIME_FG)
 
     def init(self):
-        self.text = '{} {}'.format(
-            glyphs.TIME,
-            time.strftime("%H:%M:%S")
-        )
+        self.text = glyphs.TIME + ' ' + str(time.strftime("%H:%M:%S"))
 
 
 class UserAtHost(Segment):

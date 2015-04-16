@@ -26,7 +26,7 @@ class ExitCode(Segment):
     fg = colors.foreground(theme.EXITCODE_FG)
 
     def init(self):
-        self.text = ' {} '.format(glyphs.CROSS)
+        self.text = ' ' + glyphs.CROSS + ' '
 
         if sys.argv[1] == '0':
             self.active = False

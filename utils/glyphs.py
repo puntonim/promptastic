@@ -5,6 +5,18 @@ http://unicode-table.com
 import config
 
 
+# Python 2 and 3 compatibility: chr(n) in Python3, unichr(n).encode('utf-8') in Python2.
+try:
+    # Note: exceptions raised by the lambda function are not caught by the next `except` clause,
+    # so we first run a unichr() to raise an exception in Python 3.
+    unichr(0)
+    # chr = lambda x: unichr(x).encode('utf-8')
+    chr = lambda x: unichr(x)
+except NameError:
+    # Then we are in Python3 (which has no unichr()).
+    pass
+
+
 # *_PATCHED glyphs exist only in patched fonts (available at:
 # https://github.com/Lokaltog/powerline-fonts).
 DIVIDER_RIGHT_PATCHED = chr(57520)

@@ -5,7 +5,7 @@ import config
 theme = importlib.import_module('themes.{}'.format(sys.get_current_theme_name()))
 
 
-class Segment:
+class Segment(object):
     bg = ''  # Default: no color.
     fg = ''  # Default: no color.
 
