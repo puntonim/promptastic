@@ -7,7 +7,7 @@ It works under **Mac OS X** and **Linux**.
 
 ![Promptastic screenshot](https://cloud.githubusercontent.com/assets/6423485/4512433/51131d12-4b40-11e4-8ceb-cac7b01799da.png)
 
-See [Info.md](https://github.com/nimiq/promptastic/blob/master/Info.md) for more info and
+See [INFO.md](https://github.com/nimiq/promptastic/blob/master/INFO.md) for more info and
 screenshots.
 
 This project is heavily inspired by [Powerline](https://github.com/Lokaltog/powerline)
@@ -32,7 +32,7 @@ environment;
 - simple and automatic [installation procedure](https://github.com/nimiq/promptastic/blob/master/INSTALL.md);
 - written in Python.
 
-More details in [Info.md](https://github.com/nimiq/promptastic/blob/master/Info.md).
+More details in [INFO.md](https://github.com/nimiq/promptastic/blob/master/INFO.md).
 
 Installation
 ------------
