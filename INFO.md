@@ -19,6 +19,9 @@ It's a light-colors theme, best fitting a terminal with a light background, like
 
 ![Light theme](https://cloud.githubusercontent.com/assets/6423485/4515595/ab434f92-4bc6-11e4-92d4-25f7a23aa659.png)
 
+### Custome theme
+See [CUSTOM-THEMES.md](https://github.com/nimiq/promptastic/blob/master/CUSTOM-THEMES.md) to create a custom theme.
+
 1.2. Patched fonts
 ------------------
 [Patched powerline-fonts](https://github.com/Lokaltog/powerline-fonts) can be used for
@@ -31,10 +34,6 @@ All screenshots in the next sections were taken in terminals using *Sauce Code P
 patched font. A terminal with no patched fonts looks like this:
 
 ![No patched fonts](https://cloud.githubusercontent.com/assets/6423485/4515599/b449a384-4bc6-11e4-8992-ed7ef91c6210.png)
-
-1.3. Custome theme
-----------
-See [CUSTOM-THEMES.md](https://github.com/nimiq/promptastic/blob/master/CUSTOM-THEMES.md) in order to create your custom theme.
 
 
 2. Segments
