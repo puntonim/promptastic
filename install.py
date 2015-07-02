@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
 In order to install promptastic a few lines have to be appended to those files sourced every time
 a Bash shell is invoked.
