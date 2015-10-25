@@ -12,6 +12,7 @@ The affected files (as explained at http://mywiki.wooledge.org/DotFiles) are:
 The first few lines make sure the rest of the code is compatible with both Python 2 and 3.
 """
 from __future__ import print_function
+# Python 2 and 3 compatibility: FileNotFoundError in Python 3, IOError in Python 2.
 FileNotFoundError = getattr(__builtins__, 'FileNotFoundError', IOError)
 input = getattr(__builtins__, 'raw_input', input)
 
